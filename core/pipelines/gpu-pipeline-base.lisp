@@ -388,13 +388,13 @@ names are depended on by the functions named later in the list"
                  :cached-compile-results compiled-stages))
 
 (defun make-pipeline-spec (name stages context)
-  (dbind (&key vertex tesselation-control tesselation-evaluation
+  (dbind (&key vertex tess-control tess-eval
                geometry fragment) (flatten stages)
     (make-instance 'pipeline-spec
                    :name name
                    :vertex-stage vertex
-                   :tesselation-control-stage tesselation-control
-                   :tesselation-evaluation-stage tesselation-evaluation
+                   :tesselation-control-stage tess-control
+                   :tesselation-evaluation-stage tess-eval
                    :geometry-stage geometry
                    :fragment-stage fragment
                    :context context)))
@@ -510,8 +510,8 @@ names are depended on by the functions named later in the list"
                      (:fragment . :fragment-shader)
                      (:geometry . :geometry-shader)
                      (:compute . :compute-shader)
-                     (:tesselation-evaluation . :tess-evaluation-shader)
-                     (:tesselation-control . :tess-control-shader))))
+                     (:tess-eval . :tess-evaluation-shader)
+                     (:tess-control . :tess-control-shader))))
   (defun varjo->gl-stage-names (stage-name)
     (or (cdr (assoc stage-name stage-names))
         (error "CEPL: ~a is not a known type of shader stage" stage-name))))
