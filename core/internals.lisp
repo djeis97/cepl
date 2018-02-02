@@ -18,9 +18,9 @@
                                                        instance-divisor)
   (let ((type (varjo:type-spec->type array-type)))
     (if (and (varjo:core-typep type) (not (varjo:v-typep type 'v-sampler)))
-        (let* ((slot-layout (cepl.types::expand-slot-to-layout)
-                            nil type normalized)
-               (stride (reduce #'+ slot-layout :key #'car)))
+        (let ((slot-layout (cepl.types::expand-slot-to-layout
+                            nil type normalized))
+              (stride (cepl.internals:gl-type-size array-type)))
           (loop :for attr :in slot-layout
              :for i :from 0
              :with offset = 0
